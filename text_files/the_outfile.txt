@@ -1,0 +1,4 @@
+   1 myage = 13
+   2 year = 2020
+   3 if __name__ == "__main__":
+   4     print("This won’t run if I’m imported.")
