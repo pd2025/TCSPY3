@@ -51,7 +51,7 @@ def test_suite():
     # test(merge_a_correct([1, 2, 5, 5, 8], [2, 8, 11]) == [2, 8])
     test(merge_c_correct([xs], []) == [])
     test(merge_c_correct([], [ys]) == [])
-    test(merge_c_correct(xs, ys) == [1, 5, 5])
+    test(merge_c_correct(xs, ys) == [11])
 
 
 def search_linear(xs, target):
@@ -275,10 +275,10 @@ def merge_c_correct(xs, ys):
             xi += 1  # increment xi
             yi += 1  # increment yi
         elif xs[xi] < ys[yi]:  # if element in xs < element in ys
-            result.append(xs[xi])  # append element to list
-            xi += 1  # increment xi but not yi
+            result.append(ys[yi])  # append element to list
+            yi += 1  # increment xi but not yi
         else:  # if element in xs < element in ys
-            yi += 1  # increment yi but not xi
+            xi += 1  # increment yi but not xi
 
 
 def merge_c(xs, ys):
@@ -290,6 +290,25 @@ def merge_c(xs, ys):
                 if i not in result:
                     result.append(i)
         return result
+
+
+def merge_d_correct(xs, ys):
+    result = []
+    xi = 0
+    yi = 0
+    while True:
+        if xi >= len(xs):  # if end of list xs
+            return result  # fin
+        if yi >= len(ys):  # if end of list ys
+            return result  # fin
+        if xs[xi] == ys[yi]:  # if element in xs == element in ys
+            xi += 1  # increment xi
+            yi += 1  # increment yi
+        else:  # if element in xs < element in ys
+            result.append(ys[yi])  # append element to list
+            result.append(xs[xi])  # append element to list
+            xi += 1  # increment yi but not xi
+            yi += 1  # increment xi but not yi
 
 
 def merge_d(xs, ys):
@@ -307,6 +326,24 @@ def merge_d(xs, ys):
         return result
 
 
+def merge_e_correct(xs, ys):
+    result = xs[:]
+    xi = 0
+    yi = 0
+    while True:
+        if xi >= len(xs):  # if end of list xs
+            return result  # fin
+        if yi >= len(ys):  # if end of list ys
+            return result  # fin
+        if xs[xi] == ys[yi]:  # if element in xs == element in ys
+            xs.remove(xs[xi])
+            yi += 1  # increment yi
+        elif xs[xi] < ys[yi]:
+            xi += 1
+        else:
+            yi += 1
+
+
 def merge_e(xs, ys):
     while True:
         for i in xs:
@@ -316,9 +353,4 @@ def merge_e(xs, ys):
         return xs
 
 
-xs = [1, 2, 5, 5, 8]
-ys = [2, 8, 11]
-
-
-test_suite()
-print(merge_c_correct(xs, ys))
+print(merge_e_correct([5, 7, 11, 11, 11, 12, 13], [7, 8, 11]))
